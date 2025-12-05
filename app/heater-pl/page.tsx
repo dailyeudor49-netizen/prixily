@@ -96,7 +96,7 @@ const App = () => {
             {/* Image - Mobile Optimized */}
             <div className="relative order-1 lg:order-2">
               <div className="aspect-[4/3] sm:aspect-[4/5] bg-gray-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative max-w-sm mx-auto lg:max-w-none">
-                <img src="https://images.unsplash.com/photo-1521327854376-70d58fb28639?q=80&w=1000&auto=format&fit=crop" alt="Ceramic Tower Heater Pro 2400" className="w-full h-full object-cover mix-blend-multiply opacity-90" />
+                <img src="/images/1.png" alt="Ceramic Tower Heater Pro 2400" className="w-full h-full object-cover mix-blend-multiply opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 {/* Badge */}
                 <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-red-600 text-white font-bold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-md text-xs sm:text-sm">
@@ -133,7 +133,7 @@ const App = () => {
         <div className="container mx-auto px-3 sm:px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center">
             <div className="order-2 md:order-1">
-              <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=1000&auto=format&fit=crop" alt="Chłodny salon" className="rounded-xl shadow-lg w-full h-48 sm:h-80 object-cover" />
+              <img src="/images/2.png" alt="Chłodny salon" className="rounded-xl shadow-lg w-full h-48 sm:h-80 object-cover" />
             </div>
             <div className="order-1 md:order-2">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Zimne wieczory i wysokie rachunki?</h2>
@@ -339,14 +339,14 @@ const App = () => {
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 h-32 sm:h-48">
-                         <img src="https://images.unsplash.com/photo-1585338107529-13f953b6f170?q=80&w=800&auto=format&fit=crop" alt="Pilot" className="w-full h-full object-cover" />
+                         <img src="/images/3.png" alt="Pilot" className="w-full h-full object-cover" />
                     </div>
                     <h3 className="text-base sm:text-xl font-bold mb-2">Pełna kontrola z kanapy</h3>
                     <p className="text-xs sm:text-base text-gray-600">Pilotem zmienisz temperaturę, włączysz oscylację lub ustawisz timer. Czytelny wyświetlacz LED.</p>
                 </div>
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 h-32 sm:h-48">
-                        <img src="https://images.unsplash.com/photo-1620646194483-3c22997b69c2?q=80&w=800&auto=format&fit=crop" alt="Oscylacja" className="w-full h-full object-cover" />
+                        <img src="/images/4.png" alt="Oscylacja" className="w-full h-full object-cover" />
                     </div>
                     <h3 className="text-base sm:text-xl font-bold mb-2">Szeroka Oscylacja</h3>
                     <p className="text-xs sm:text-base text-gray-600">Rozprowadza ciepło równomiernie po całym pokoju do 50m², eliminując zimne kąty.</p>
@@ -401,7 +401,7 @@ const App = () => {
                     </p>
                 </div>
                 <div>
-                    <img src="https://images.unsplash.com/photo-1542204625-746eb5f6a208?q=80&w=800&auto=format&fit=crop" alt="Efekt kominka" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
+                    <img src="/images/5.png" alt="Efekt kominka" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
                 </div>
             </div>
         </div>
@@ -414,7 +414,7 @@ const App = () => {
             {/* SPECS */}
             <div className="grid md:grid-cols-2 gap-6 sm:gap-10 mb-10 sm:mb-20 items-center">
                  <div className="order-2 md:order-1">
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Widok z boku" className="rounded-lg shadow w-full h-48 sm:h-80 object-cover" />
+                    <img src="/images/6.png" alt="Widok z boku" className="rounded-lg shadow w-full h-48 sm:h-80 object-cover" />
                 </div>
                 <div className="space-y-2 sm:space-y-4 text-xs sm:text-sm order-1 md:order-2">
                     <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Specyfikacja Techniczna</h3>
@@ -539,7 +539,7 @@ const App = () => {
                 <div className="p-4 sm:p-6 md:p-8 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-100">
                     <div className="flex gap-3 sm:gap-4 mb-4 sm:mb-6">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-lg p-2 shadow-sm flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1521327854376-70d58fb28639?q=80&w=200&auto=format&fit=crop" alt="Product" className="w-full h-full object-contain" />
+                            <img src="/images/7.png" alt="Product" className="w-full h-full object-contain" />
                         </div>
                         <div>
                             <h4 className="font-bold text-sm sm:text-base">Ceramic Tower Heater Pro</h4>

@@ -19,24 +19,20 @@ import {
   LucideBatteryCharging,
   LucideAlertCircle
 } from 'lucide-react';
+import { GoogleAdsScript, getLandingConfig } from '@/components/GoogleAdsTracking';
+
+// Landing slug per questo prodotto
+const LANDING_SLUG = 'g-heater-pl';
 
 // Validazione numero polacco
 const validatePolishPhone = (phone: string): { valid: boolean; error: string } => {
-  // Rimuovi spazi, trattini e parentesi
   const cleaned = phone.replace(/[\s\-\(\)]/g, '');
-
-  // Pattern per numeri polacchi:
-  // - +48 seguito da 9 cifre
-  // - 48 seguito da 9 cifre
-  // - 9 cifre (numeri mobili iniziano con 5, 6, 7, 8)
   const patterns = [
-    /^\+48[4-9]\d{8}$/,  // +48 + 9 cifre
-    /^48[4-9]\d{8}$/,    // 48 + 9 cifre
-    /^[4-9]\d{8}$/       // 9 cifre (senza prefisso)
+    /^\+48[4-9]\d{8}$/,
+    /^48[4-9]\d{8}$/,
+    /^[4-9]\d{8}$/
   ];
-
   const isValid = patterns.some(pattern => pattern.test(cleaned));
-
   if (!isValid) {
     if (cleaned.length < 9) {
       return { valid: false, error: 'Numer jest za krótki. Polski numer ma 9 cyfr.' };
@@ -49,11 +45,9 @@ const validatePolishPhone = (phone: string): { valid: boolean; error: string } =
     }
     return { valid: false, error: 'Nieprawidłowy format numeru polskiego. Użyj formatu: 500600700 lub +48500600700' };
   }
-
   return { valid: true, error: '' };
 };
 
-// Validazione codice postale polacco (XX-XXX)
 const validatePolishPostalCode = (code: string): boolean => {
   return /^\d{2}-?\d{3}$/.test(code.trim());
 };
@@ -61,6 +55,10 @@ const validatePolishPostalCode = (code: string): boolean => {
 const App = () => {
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Get landing config
+  const landingConfig = getLandingConfig(LANDING_SLUG);
+  const productPrice = landingConfig?.defaultValue || 299;
 
   // Form state
   const [formData, setFormData] = useState({
@@ -71,7 +69,6 @@ const App = () => {
     city: ''
   });
 
-  // Validation state
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
@@ -91,7 +88,6 @@ const App = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // Validate form on data change
   useEffect(() => {
     const newErrors = {
       name: '',
@@ -101,12 +97,10 @@ const App = () => {
       city: ''
     };
 
-    // Name validation
     if (touched.name && formData.name.trim().length < 3) {
       newErrors.name = 'Imię i nazwisko musi mieć minimum 3 znaki';
     }
 
-    // Phone validation
     if (touched.phone) {
       const phoneValidation = validatePolishPhone(formData.phone);
       if (!phoneValidation.valid) {
@@ -114,24 +108,20 @@ const App = () => {
       }
     }
 
-    // Address validation
     if (touched.address && formData.address.trim().length < 5) {
       newErrors.address = 'Podaj pełny adres (ulica i numer)';
     }
 
-    // Postal code validation
     if (touched.postalCode && !validatePolishPostalCode(formData.postalCode)) {
       newErrors.postalCode = 'Format: XX-XXX (np. 00-001)';
     }
 
-    // City validation
     if (touched.city && formData.city.trim().length < 2) {
       newErrors.city = 'Podaj miejscowość';
     }
 
     setErrors(newErrors);
 
-    // Check if form is valid
     const hasNoErrors = Object.values(newErrors).every(error => error === '');
     const allFieldsFilled =
       formData.name.trim().length >= 3 &&
@@ -154,7 +144,6 @@ const App = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mark all fields as touched
     setTouched({
       name: true,
       phone: true,
@@ -167,13 +156,12 @@ const App = () => {
 
     setIsSubmitting(true);
 
-    // Simula invio form (qui puoi integrare con l'API reale)
-    // Il form viene inviato tramite lo script dell'affiliato
-    const form = e.target as HTMLFormElement;
+    // Generate transaction ID
+    const transactionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-    // Redirect to thank you page with name
+    // Redirect to Google Ads thank you page with tracking params
     setTimeout(() => {
-      router.push(`/dziekujemy?name=${encodeURIComponent(formData.name)}`);
+      router.push(`/g-ty?name=${encodeURIComponent(formData.name)}&landing=${LANDING_SLUG}&value=${productPrice}&tid=${transactionId}`);
     }, 500);
   };
 
@@ -191,6 +179,10 @@ const App = () => {
 
   return (
     <div className="font-sans text-gray-900 overflow-x-hidden">
+      {/* Google Ads Script */}
+      {landingConfig && (
+        <GoogleAdsScript conversionId={landingConfig.conversionId} />
+      )}
 
       {/* HERO SECTION - Mobile Optimized */}
       <header className="relative bg-white overflow-hidden pb-6 md:pb-10">
@@ -228,9 +220,9 @@ const App = () => {
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <div className="text-center sm:text-left w-full sm:w-auto">
                   <p className="text-gray-400 text-xs sm:text-sm line-through">Cena: 600 zł</p>
-                  <p className="text-3xl sm:text-4xl font-bold text-gray-900">299 zł</p>
+                  <p className="text-3xl sm:text-4xl font-bold text-gray-900">{productPrice} zł</p>
                   <p className="text-green-600 text-xs sm:text-sm font-semibold bg-green-50 px-2 py-1 rounded inline-block">
-                    Oszczędzasz 301 zł
+                    Oszczędzasz {600 - productPrice} zł
                   </p>
                 </div>
                 <button
@@ -269,7 +261,7 @@ const App = () => {
         </div>
       </header>
 
-      {/* AREA COVERAGE BADGE - NEW */}
+      {/* AREA COVERAGE BADGE */}
       <section className="py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
         <div className="container mx-auto px-3 sm:px-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-8 text-center">
@@ -330,7 +322,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* NEW SECTION: CERAMIC HEAT RETENTION */}
+      {/* SECTION: CERAMIC HEAT RETENTION */}
       <section className="py-10 sm:py-16 bg-gradient-to-br from-amber-50 to-orange-50">
         <div className="container mx-auto px-3 sm:px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center">
@@ -715,7 +707,7 @@ const App = () => {
                     <div className="space-y-2 text-xs sm:text-sm mb-4 sm:mb-6">
                         <div className="flex justify-between">
                             <span className="text-gray-600">Cena promocyjna</span>
-                            <span className="font-bold">299 zł</span>
+                            <span className="font-bold">{productPrice} zł</span>
                         </div>
                         <div className="flex justify-between text-green-600">
                             <span>Wysyłka (Pobranie)</span>
@@ -725,7 +717,7 @@ const App = () => {
 
                     <div className="border-t pt-3 sm:pt-4 flex justify-between items-center">
                         <span className="font-bold text-sm sm:text-lg">Razem:</span>
-                        <span className="text-2xl sm:text-3xl font-bold text-orange-600">299 zł</span>
+                        <span className="text-2xl sm:text-3xl font-bold text-orange-600">{productPrice} zł</span>
                     </div>
 
                     <div className="mt-4 sm:mt-6 bg-yellow-50 border border-yellow-100 p-2 sm:p-3 rounded text-[10px] sm:text-xs text-yellow-800 flex gap-2">
@@ -777,25 +769,20 @@ const App = () => {
                                 maxLength={12}
                                 value={formData.phone}
                                 onChange={(e) => {
-                                  // Allow only numbers and + sign, max 12 chars
                                   const value = e.target.value.replace(/[^0-9+]/g, '');
                                   if (value.length <= 12) {
                                     handleInputChange('phone', value);
                                   }
                                 }}
                                 onKeyDown={(e) => {
-                                  // Allow: backspace, delete, tab, escape, enter, +
                                   if ([8, 9, 27, 13, 46].includes(e.keyCode) ||
-                                      // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
                                       (e.keyCode >= 35 && e.keyCode <= 40) ||
                                       ((e.ctrlKey || e.metaKey) && [65, 67, 86, 88].includes(e.keyCode))) {
                                     return;
                                   }
-                                  // Allow + only at start
                                   if (e.key === '+' && formData.phone.length === 0) {
                                     return;
                                   }
-                                  // Block non-numeric
                                   if (!/[0-9]/.test(e.key)) {
                                     e.preventDefault();
                                   }
@@ -809,7 +796,6 @@ const App = () => {
                               {touched.phone && !errors.phone && formData.phone && (
                                 <LucideCheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
                               )}
-                              {/* Character counter */}
                               <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 9 ? 'text-green-500' : 'text-gray-400'}`}>
                                 {formData.phone.length}/9
                               </span>
@@ -893,7 +879,7 @@ const App = () => {
                             <LucideCheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                         </div>
 
-                        {/* Submit Button - Disabled until form is valid */}
+                        {/* Submit Button */}
                         <button
                           type="submit"
                           disabled={!isFormValid || isSubmitting}
@@ -916,7 +902,6 @@ const App = () => {
                           )}
                         </button>
 
-                        {/* Form validation summary */}
                         {!isFormValid && Object.values(touched).some(t => t) && (
                           <div className="bg-orange-50 border border-orange-200 rounded p-2 sm:p-3 mt-2">
                             <p className="text-[10px] sm:text-xs text-orange-800 font-medium flex items-center gap-1">
@@ -978,7 +963,7 @@ const App = () => {
         <div className="flex justify-between items-center gap-2 sm:gap-3">
             <div className="flex flex-col">
                 <span className="text-[9px] sm:text-[10px] text-gray-500 line-through">600 zł</span>
-                <span className="text-xl sm:text-2xl font-bold text-gray-900 leading-none">299 zł</span>
+                <span className="text-xl sm:text-2xl font-bold text-gray-900 leading-none">{productPrice} zł</span>
             </div>
             <button
                 onClick={scrollToOrder}

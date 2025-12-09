@@ -267,8 +267,8 @@ const App = () => {
 
             {/* Image - Mobile Optimized */}
             <div className="relative order-1 lg:order-2">
-              <div className="aspect-[4/3] sm:aspect-[4/5] bg-gray-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative max-w-sm mx-auto lg:max-w-none">
-                <img src="/images/1.png" alt="Ceramic Tower Heater Pro 2000" className="w-full h-full object-cover mix-blend-multiply opacity-90" />
+              <div className="bg-gray-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative max-w-xs sm:max-w-sm mx-auto lg:max-w-none">
+                <img src="/images/1.png" alt="Ceramic Tower Heater Pro 2000" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 {/* Badge */}
                 <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-red-600 text-white font-bold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-md text-xs sm:text-sm">

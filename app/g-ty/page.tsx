@@ -12,6 +12,7 @@ function ThankYouContent() {
   const landingSlug = searchParams.get('landing') || '';
   const customValue = searchParams.get('value');
   const transactionId = searchParams.get('tid');
+  const isDouble = searchParams.get('double') === '1';
 
   // Ottieni la configurazione della landing
   const landingConfig = getLandingConfig(landingSlug);
@@ -21,10 +22,12 @@ function ThankYouContent() {
   const productName = landingConfig?.productName || 'Produkt';
   const currency = landingConfig?.currency || 'PLN';
 
+  // Se è un ordine doppio (DOUBLE), non caricare il pixel di conversione
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8 sm:py-16 px-4">
-      {/* Google Ads Conversion Tracking */}
-      {landingConfig && (
+      {/* Google Ads Conversion Tracking - Non caricare se è un ordine doppio (DOUBLE) */}
+      {landingConfig && !isDouble && (
         <GoogleAdsConversion
           conversionId={landingConfig.conversionId}
           conversionLabel={landingConfig.conversionLabel}

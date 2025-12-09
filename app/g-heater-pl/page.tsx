@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import {
@@ -141,6 +141,9 @@ const App = () => {
     setTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const hiddenFormRef = useRef<HTMLFormElement>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -155,14 +158,62 @@ const App = () => {
     if (!isFormValid) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
     // Generate transaction ID
     const transactionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-    // Redirect to Google Ads thank you page with tracking params
+    // Get fingerprint from hidden input (populated by tmfp script)
+    const form = e.target as HTMLFormElement;
+    const tmfpInput = form.querySelector('input[name="tmfp"]') as HTMLInputElement;
+    const fingerprint = tmfpInput?.value || '';
+
+    // Submit via hidden form to bypass CORS
+    if (hiddenFormRef.current) {
+      const hiddenForm = hiddenFormRef.current;
+
+      // Combine full address: street, postal code, city
+      const fullAddress = `${formData.address}, ${formData.postalCode} ${formData.city}`.trim();
+
+      // Set all values in the hidden form
+      (hiddenForm.querySelector('input[name="name"]') as HTMLInputElement).value = formData.name;
+      (hiddenForm.querySelector('input[name="tel"]') as HTMLInputElement).value = formData.phone;
+      (hiddenForm.querySelector('input[name="street-address"]') as HTMLInputElement).value = fullAddress;
+      (hiddenForm.querySelector('input[name="tmfp"]') as HTMLInputElement).value = fingerprint;
+
+      // If fingerprint is not available, send user agent as fallback (required by API)
+      if (!fingerprint) {
+        (hiddenForm.querySelector('input[name="ua"]') as HTMLInputElement).value = navigator.userAgent;
+      }
+
+      // Get UTM parameters from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmParamNames = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'];
+      utmParamNames.forEach(param => {
+        const value = urlParams.get(param);
+        const input = hiddenForm.querySelector(`input[name="${param}"]`) as HTMLInputElement;
+        if (input) {
+          input.value = value || '';
+        }
+      });
+
+      // Debug: Log all form data before submission
+      console.log('=== FORM SUBMISSION DEBUG ===');
+      console.log('Fingerprint (tmfp):', fingerprint);
+      const formDataDebug = new FormData(hiddenForm);
+      formDataDebug.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+      console.log('=== END DEBUG ===');
+
+      // Submit the hidden form to iframe
+      hiddenForm.submit();
+    }
+
+    // Redirect to thank you page after a short delay to allow form submission
     setTimeout(() => {
       router.push(`/g-ty?name=${encodeURIComponent(formData.name)}&landing=${LANDING_SLUG}&value=${productPrice}&tid=${transactionId}`);
-    }, 500);
+    }, 1500);
   };
 
   const toggleFaq = (index: number) => {
@@ -183,6 +234,14 @@ const App = () => {
       {landingConfig && (
         <GoogleAdsScript conversionId={landingConfig.conversionId} />
       )}
+
+      {/* Affiliate Click Tracking Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://offers.supertrendaffiliateprogram.com/forms/api/ck/?o=528&uid=01980829-601f-7dba-9f7a-150da3869743&lp=528"
+        style={{ width: '1px', height: '1px', display: 'none' }}
+        alt=""
+      />
 
       {/* HERO SECTION - Mobile Optimized */}
       <header className="relative bg-white overflow-hidden pb-6 md:pb-10">
@@ -911,6 +970,15 @@ const App = () => {
                           </div>
                         )}
 
+                        {submitError && (
+                          <div className="bg-red-50 border border-red-200 rounded p-2 sm:p-3 mt-2">
+                            <p className="text-[10px] sm:text-xs text-red-800 font-medium flex items-center gap-1">
+                              <LucideAlertCircle className="w-3 h-3" />
+                              {submitError}
+                            </p>
+                          </div>
+                        )}
+
                         <p className="text-[9px] sm:text-[10px] text-center text-gray-400 mt-2">
                             Klikając przycisk, składasz zamówienie z obowiązkiem zapłaty przy odbiorze.
                         </p>
@@ -980,6 +1048,38 @@ const App = () => {
         strategy="lazyOnload"
         crossOrigin="anonymous"
       />
+
+      {/* Hidden iframe for form submission (bypasses CORS) */}
+      <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: 'none' }} title="hidden"></iframe>
+
+      {/* Hidden form that posts to affiliate API */}
+      <form
+        ref={hiddenFormRef}
+        action="https://offers.supertrendaffiliateprogram.com/forms/api/"
+        method="POST"
+        target="hidden_iframe"
+        style={{ display: 'none' }}
+      >
+        <input type="hidden" name="uid" value="01980829-601f-7dba-9f7a-150da3869743" />
+        <input type="hidden" name="key" value="a34a13ddd29b9e3832fe73" />
+        <input type="hidden" name="offer" value="528" />
+        <input type="hidden" name="lp" value="528" />
+        <input type="hidden" name="name" value="" />
+        <input type="hidden" name="tel" value="" />
+        <input type="hidden" name="street-address" value="" />
+        <input type="hidden" name="tmfp" value="" />
+        <input type="hidden" name="ua" value="" />
+        <input type="hidden" name="utm_source" value="" />
+        <input type="hidden" name="utm_medium" value="" />
+        <input type="hidden" name="utm_campaign" value="" />
+        <input type="hidden" name="utm_term" value="" />
+        <input type="hidden" name="utm_content" value="" />
+        <input type="hidden" name="subid" value="" />
+        <input type="hidden" name="subid2" value="" />
+        <input type="hidden" name="subid3" value="" />
+        <input type="hidden" name="subid4" value="" />
+        <input type="hidden" name="pubid" value="" />
+      </form>
     </div>
   );
 };

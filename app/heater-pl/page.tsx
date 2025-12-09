@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import {
@@ -53,39 +53,28 @@ const validatePolishPhone = (phone: string): { valid: boolean; error: string } =
   return { valid: true, error: '' };
 };
 
-// Validazione codice postale polacco (XX-XXX)
-const validatePolishPostalCode = (code: string): boolean => {
-  return /^\d{2}-?\d{3}$/.test(code.trim());
-};
-
 const App = () => {
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Form state
+  // Form state - solo campi obbligatori API
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: '',
-    postalCode: '',
-    city: ''
+    address: ''
   });
 
   // Validation state
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
-    address: '',
-    postalCode: '',
-    city: ''
+    address: ''
   });
 
   const [touched, setTouched] = useState({
     name: false,
     phone: false,
-    address: false,
-    postalCode: false,
-    city: false
+    address: false
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,17 +85,10 @@ const App = () => {
     const newErrors = {
       name: '',
       phone: '',
-      address: '',
-      postalCode: '',
-      city: ''
+      address: ''
     };
 
-    // Name validation
-    if (touched.name && formData.name.trim().length < 3) {
-      newErrors.name = 'Imię i nazwisko musi mieć minimum 3 znaki';
-    }
-
-    // Phone validation
+    // Phone validation - solo questo campo ha validazione rigorosa
     if (touched.phone) {
       const phoneValidation = validatePolishPhone(formData.phone);
       if (!phoneValidation.valid) {
@@ -114,33 +96,15 @@ const App = () => {
       }
     }
 
-    // Address validation
-    if (touched.address && formData.address.trim().length < 5) {
-      newErrors.address = 'Podaj pełny adres (ulica i numer)';
-    }
-
-    // Postal code validation
-    if (touched.postalCode && !validatePolishPostalCode(formData.postalCode)) {
-      newErrors.postalCode = 'Format: XX-XXX (np. 00-001)';
-    }
-
-    // City validation
-    if (touched.city && formData.city.trim().length < 2) {
-      newErrors.city = 'Podaj miejscowość';
-    }
-
     setErrors(newErrors);
 
-    // Check if form is valid
-    const hasNoErrors = Object.values(newErrors).every(error => error === '');
+    // Check if form is valid - solo campi non vuoti e telefono valido
     const allFieldsFilled =
-      formData.name.trim().length >= 3 &&
+      formData.name.trim().length > 0 &&
       validatePolishPhone(formData.phone).valid &&
-      formData.address.trim().length >= 5 &&
-      validatePolishPostalCode(formData.postalCode) &&
-      formData.city.trim().length >= 2;
+      formData.address.trim().length > 0;
 
-    setIsFormValid(hasNoErrors && allFieldsFilled);
+    setIsFormValid(allFieldsFilled);
   }, [formData, touched]);
 
   const handleInputChange = (field: string, value: string) => {
@@ -151,6 +115,9 @@ const App = () => {
     setTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const hiddenFormRef = useRef<HTMLFormElement>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -158,23 +125,53 @@ const App = () => {
     setTouched({
       name: true,
       phone: true,
-      address: true,
-      postalCode: true,
-      city: true
+      address: true
     });
 
     if (!isFormValid) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simula invio form (qui puoi integrare con l'API reale)
-    // Il form viene inviato tramite lo script dell'affiliato
+    // Get fingerprint from hidden input (populated by tmfp script)
     const form = e.target as HTMLFormElement;
+    const tmfpInput = form.querySelector('input[name="tmfp"]') as HTMLInputElement;
+    const fingerprint = tmfpInput?.value || '';
 
-    // Redirect to thank you page with name
+    // Submit via hidden form to bypass CORS
+    if (hiddenFormRef.current) {
+      const hiddenForm = hiddenFormRef.current;
+
+      // Set all values in the hidden form
+      (hiddenForm.querySelector('input[name="name"]') as HTMLInputElement).value = formData.name;
+      (hiddenForm.querySelector('input[name="tel"]') as HTMLInputElement).value = formData.phone;
+      (hiddenForm.querySelector('input[name="street-address"]') as HTMLInputElement).value = formData.address;
+      (hiddenForm.querySelector('input[name="tmfp"]') as HTMLInputElement).value = fingerprint;
+
+      // If fingerprint is not available, send user agent as fallback (required by API)
+      if (!fingerprint) {
+        (hiddenForm.querySelector('input[name="ua"]') as HTMLInputElement).value = navigator.userAgent;
+      }
+
+      // Get UTM parameters from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmParamNames = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'subid', 'subid2', 'subid3', 'subid4', 'pubid'];
+      utmParamNames.forEach(param => {
+        const value = urlParams.get(param);
+        const input = hiddenForm.querySelector(`input[name="${param}"]`) as HTMLInputElement;
+        if (input) {
+          input.value = value || '';
+        }
+      });
+
+      // Submit the hidden form to iframe
+      hiddenForm.submit();
+    }
+
+    // Redirect to thank you page after a short delay to allow form submission
     setTimeout(() => {
       router.push(`/dziekujemy?name=${encodeURIComponent(formData.name)}`);
-    }, 500);
+    }, 1000);
   };
 
   const toggleFaq = (index: number) => {
@@ -191,6 +188,14 @@ const App = () => {
 
   return (
     <div className="font-sans text-gray-900 overflow-x-hidden">
+
+      {/* Affiliate Click Tracking Pixel */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://offers.supertrendaffiliateprogram.com/forms/api/ck/?o=528&uid=01980829-601f-7dba-9f7a-150da3869743&lp=528"
+        style={{ width: '1px', height: '1px', display: 'none' }}
+        alt=""
+      />
 
       {/* HERO SECTION - Mobile Optimized */}
       <header className="relative bg-white overflow-hidden pb-6 md:pb-10">
@@ -751,17 +756,9 @@ const App = () => {
                               name="your-name"
                               value={formData.name}
                               onChange={(e) => handleInputChange('name', e.target.value)}
-                              onBlur={() => handleBlur('name')}
-                              className={`w-full border p-2.5 sm:p-3 rounded text-sm focus:outline-none transition ${
-                                errors.name ? 'border-red-500 bg-red-50' : touched.name && !errors.name && formData.name ? 'border-green-500 bg-green-50' : 'border-gray-300 focus:border-orange-500'
-                              }`}
+                              className="w-full border border-gray-300 p-2.5 sm:p-3 rounded text-sm focus:outline-none focus:border-orange-500 transition"
                               placeholder="np. Jan Kowalski"
                             />
-                            {errors.name && (
-                              <p className="text-red-500 text-[10px] sm:text-xs mt-1 flex items-center gap-1">
-                                <LucideAlertCircle className="w-3 h-3" /> {errors.name}
-                              </p>
-                            )}
                         </div>
 
                         {/* Phone */}
@@ -824,64 +821,18 @@ const App = () => {
                             </p>
                         </div>
 
-                        {/* Address */}
+                        {/* Address - campo unico per indirizzo completo */}
                         <div>
-                            <label className="text-[10px] sm:text-xs font-bold text-gray-700 uppercase">Pełny adres</label>
+                            <label className="text-[10px] sm:text-xs font-bold text-gray-700 uppercase">Adres dostawy</label>
                             <input
                               type="text"
                               name="street-address"
                               autoComplete="street-address"
                               value={formData.address}
                               onChange={(e) => handleInputChange('address', e.target.value)}
-                              onBlur={() => handleBlur('address')}
-                              className={`w-full border p-2.5 sm:p-3 rounded text-sm focus:outline-none transition ${
-                                errors.address ? 'border-red-500 bg-red-50' : touched.address && !errors.address && formData.address ? 'border-green-500 bg-green-50' : 'border-gray-300 focus:border-orange-500'
-                              }`}
-                              placeholder="Ulica i numer domu/mieszkania"
+                              className="w-full border border-gray-300 p-2.5 sm:p-3 rounded text-sm focus:outline-none focus:border-orange-500 transition"
+                              placeholder="np. ul. Marszałkowska 10/5, 00-001 Warszawa"
                             />
-                            {errors.address && (
-                              <p className="text-red-500 text-[10px] sm:text-xs mt-1 flex items-center gap-1">
-                                <LucideAlertCircle className="w-3 h-3" /> {errors.address}
-                              </p>
-                            )}
-                        </div>
-
-                        {/* Postal Code & City */}
-                        <div className="grid grid-cols-3 gap-2">
-                            <div className="col-span-1">
-                                <label className="text-[10px] sm:text-xs font-bold text-gray-700 uppercase">Kod Pocztowy</label>
-                                <input
-                                  type="text"
-                                  name="postal-code"
-                                  autoComplete="postal-code"
-                                  value={formData.postalCode}
-                                  onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                                  onBlur={() => handleBlur('postalCode')}
-                                  className={`w-full border p-2.5 sm:p-3 rounded text-sm focus:outline-none transition ${
-                                    errors.postalCode ? 'border-red-500 bg-red-50' : touched.postalCode && !errors.postalCode && formData.postalCode ? 'border-green-500 bg-green-50' : 'border-gray-300 focus:border-orange-500'
-                                  }`}
-                                  placeholder="00-000"
-                                />
-                                {errors.postalCode && (
-                                  <p className="text-red-500 text-[9px] mt-1">{errors.postalCode}</p>
-                                )}
-                            </div>
-                            <div className="col-span-2">
-                                <label className="text-[10px] sm:text-xs font-bold text-gray-700 uppercase">Miejscowość</label>
-                                <input
-                                  type="text"
-                                  value={formData.city}
-                                  onChange={(e) => handleInputChange('city', e.target.value)}
-                                  onBlur={() => handleBlur('city')}
-                                  className={`w-full border p-2.5 sm:p-3 rounded text-sm focus:outline-none transition ${
-                                    errors.city ? 'border-red-500 bg-red-50' : touched.city && !errors.city && formData.city ? 'border-green-500 bg-green-50' : 'border-gray-300 focus:border-orange-500'
-                                  }`}
-                                  placeholder="Miasto"
-                                />
-                                {errors.city && (
-                                  <p className="text-red-500 text-[9px] mt-1">{errors.city}</p>
-                                )}
-                            </div>
                         </div>
 
                         {/* Payment Method */}
@@ -922,6 +873,15 @@ const App = () => {
                             <p className="text-[10px] sm:text-xs text-orange-800 font-medium flex items-center gap-1">
                               <LucideAlertCircle className="w-3 h-3" />
                               Uzupełnij wszystkie wymagane pola, aby odblokować przycisk zamówienia.
+                            </p>
+                          </div>
+                        )}
+
+                        {submitError && (
+                          <div className="bg-red-50 border border-red-200 rounded p-2 sm:p-3 mt-2">
+                            <p className="text-[10px] sm:text-xs text-red-800 font-medium flex items-center gap-1">
+                              <LucideAlertCircle className="w-3 h-3" />
+                              {submitError}
                             </p>
                           </div>
                         )}
@@ -995,6 +955,38 @@ const App = () => {
         strategy="lazyOnload"
         crossOrigin="anonymous"
       />
+
+      {/* Hidden iframe for form submission (bypasses CORS) */}
+      <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: 'none' }} title="hidden"></iframe>
+
+      {/* Hidden form that posts to affiliate API */}
+      <form
+        ref={hiddenFormRef}
+        action="https://offers.supertrendaffiliateprogram.com/forms/api/"
+        method="POST"
+        target="hidden_iframe"
+        style={{ display: 'none' }}
+      >
+        <input type="hidden" name="uid" value="01980829-601f-7dba-9f7a-150da3869743" />
+        <input type="hidden" name="key" value="a34a13ddd29b9e3832fe73" />
+        <input type="hidden" name="offer" value="528" />
+        <input type="hidden" name="lp" value="528" />
+        <input type="hidden" name="name" value="" />
+        <input type="hidden" name="tel" value="" />
+        <input type="hidden" name="street-address" value="" />
+        <input type="hidden" name="tmfp" value="" />
+        <input type="hidden" name="ua" value="" />
+        <input type="hidden" name="utm_source" value="" />
+        <input type="hidden" name="utm_medium" value="" />
+        <input type="hidden" name="utm_campaign" value="" />
+        <input type="hidden" name="utm_term" value="" />
+        <input type="hidden" name="utm_content" value="" />
+        <input type="hidden" name="subid" value="" />
+        <input type="hidden" name="subid2" value="" />
+        <input type="hidden" name="subid3" value="" />
+        <input type="hidden" name="subid4" value="" />
+        <input type="hidden" name="pubid" value="" />
+      </form>
     </div>
   );
 };

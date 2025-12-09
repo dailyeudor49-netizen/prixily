@@ -485,15 +485,15 @@ const App = () => {
 
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
-                    <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 h-32 sm:h-48">
-                         <img src="/images/3.png" alt="Ovladač" className="w-full h-full object-cover" />
+                    <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 bg-gray-50">
+                         <img src="/images/3.png" alt="Ovladač" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base sm:text-xl font-bold mb-2">Plná kontrola z gauče</h3>
                     <p className="text-xs sm:text-base text-gray-600">Ovladačem změníte teplotu, zapnete oscilaci nebo nastavíte časovač. Přehledný LED displej.</p>
                 </div>
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
-                    <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 h-32 sm:h-48">
-                        <img src="/images/4.png" alt="Oscilace" className="w-full h-full object-cover" />
+                    <div className="overflow-hidden rounded-lg mb-3 sm:mb-4 bg-gray-50">
+                        <img src="/images/4.png" alt="Oscilace" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base sm:text-xl font-bold mb-2">Široká oscilace</h3>
                     <p className="text-xs sm:text-base text-gray-600">Rozvádí teplo rovnoměrně po celé místnosti do 50m², eliminuje studené kouty.</p>

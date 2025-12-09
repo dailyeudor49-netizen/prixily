@@ -20,33 +20,18 @@ import {
   LucideAlertCircle
 } from 'lucide-react';
 
-// Validazione numero ceco
-const validateCzechPhone = (phone: string): { valid: boolean; error: string } => {
+// Validazione numero - solo controllo lunghezza
+const validatePhone = (phone: string): { valid: boolean; error: string } => {
   const cleaned = phone.replace(/[\s\-\(\)]/g, '');
 
-  // Pattern per numeri cechi:
-  // - +420 seguito da 9 cifre
-  // - 420 seguito da 9 cifre
-  // - 9 cifre (numeri mobili iniziano con 6, 7)
-  const patterns = [
-    /^\+420[0-9]{9}$/,
-    /^420[0-9]{9}$/,
-    /^[0-9]{9}$/
-  ];
-
-  const isValid = patterns.some(pattern => pattern.test(cleaned));
-
-  if (!isValid) {
-    if (cleaned.length < 9) {
-      return { valid: false, error: 'Číslo je příliš krátké. České číslo má 9 číslic.' };
-    }
-    if (cleaned.length > 13) {
-      return { valid: false, error: 'Číslo je příliš dlouhé.' };
-    }
-    if (!/^[\+]?[0-9]+$/.test(cleaned)) {
-      return { valid: false, error: 'Číslo obsahuje neplatné znaky.' };
-    }
-    return { valid: false, error: 'Neplatný formát českého čísla. Použijte formát: 777888999 nebo +420777888999' };
+  if (cleaned.length < 7) {
+    return { valid: false, error: 'Číslo je příliš krátké (min. 7 číslic).' };
+  }
+  if (cleaned.length > 15) {
+    return { valid: false, error: 'Číslo je příliš dlouhé (max. 15 číslic).' };
+  }
+  if (!/^[\+]?[0-9]+$/.test(cleaned)) {
+    return { valid: false, error: 'Číslo obsahuje neplatné znaky.' };
   }
 
   return { valid: true, error: '' };
@@ -86,7 +71,7 @@ const App = () => {
     };
 
     if (touched.phone) {
-      const phoneValidation = validateCzechPhone(formData.phone);
+      const phoneValidation = validatePhone(formData.phone);
       if (!phoneValidation.valid) {
         newErrors.phone = phoneValidation.error;
       }
@@ -96,7 +81,7 @@ const App = () => {
 
     const allFieldsFilled =
       formData.name.trim().length > 0 &&
-      validateCzechPhone(formData.phone).valid &&
+      validatePhone(formData.phone).valid &&
       formData.address.trim().length > 0;
 
     setIsFormValid(allFieldsFilled);
@@ -748,11 +733,11 @@ const App = () => {
                                 autoComplete="tel"
                                 inputMode="numeric"
                                 pattern="[0-9+]*"
-                                maxLength={13}
+                                maxLength={15}
                                 value={formData.phone}
                                 onChange={(e) => {
                                   const value = e.target.value.replace(/[^0-9+]/g, '');
-                                  if (value.length <= 13) {
+                                  if (value.length <= 15) {
                                     handleInputChange('phone', value);
                                   }
                                 }}
@@ -778,8 +763,8 @@ const App = () => {
                               {touched.phone && !errors.phone && formData.phone && (
                                 <LucideCheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
                               )}
-                              <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 9 ? 'text-green-500' : 'text-gray-400'}`}>
-                                {formData.phone.length}/9
+                              <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 7 ? 'text-green-500' : 'text-gray-400'}`}>
+                                {formData.phone.length}
                               </span>
                             </div>
                             {errors.phone && (
@@ -788,7 +773,7 @@ const App = () => {
                               </p>
                             )}
                             <p className="text-gray-400 text-[9px] sm:text-[10px] mt-1">
-                              Pouze čísla. České číslo: 9 číslic (např. 777888999)
+                              Min. 7 číslic, max. 15 číslic
                             </p>
                         </div>
 

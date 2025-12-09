@@ -21,34 +21,18 @@ import {
   LucideAlertCircle
 } from 'lucide-react';
 
-// Validazione numero polacco
-const validatePolishPhone = (phone: string): { valid: boolean; error: string } => {
-  // Rimuovi spazi, trattini e parentesi
+// Validazione numero - solo controllo lunghezza
+const validatePhone = (phone: string): { valid: boolean; error: string } => {
   const cleaned = phone.replace(/[\s\-\(\)]/g, '');
 
-  // Pattern per numeri polacchi:
-  // - +48 seguito da 9 cifre
-  // - 48 seguito da 9 cifre
-  // - 9 cifre (numeri mobili iniziano con 5, 6, 7, 8)
-  const patterns = [
-    /^\+48[4-9]\d{8}$/,  // +48 + 9 cifre
-    /^48[4-9]\d{8}$/,    // 48 + 9 cifre
-    /^[4-9]\d{8}$/       // 9 cifre (senza prefisso)
-  ];
-
-  const isValid = patterns.some(pattern => pattern.test(cleaned));
-
-  if (!isValid) {
-    if (cleaned.length < 9) {
-      return { valid: false, error: 'Numer jest za krótki. Polski numer ma 9 cyfr.' };
-    }
-    if (cleaned.length > 12) {
-      return { valid: false, error: 'Numer jest za długi.' };
-    }
-    if (!/^[\+]?[0-9]+$/.test(cleaned)) {
-      return { valid: false, error: 'Numer zawiera nieprawidłowe znaki.' };
-    }
-    return { valid: false, error: 'Nieprawidłowy format numeru polskiego. Użyj formatu: 500600700 lub +48500600700' };
+  if (cleaned.length < 7) {
+    return { valid: false, error: 'Numer jest za krótki (min. 7 cyfr).' };
+  }
+  if (cleaned.length > 15) {
+    return { valid: false, error: 'Numer jest za długi (max. 15 cyfr).' };
+  }
+  if (!/^[\+]?[0-9]+$/.test(cleaned)) {
+    return { valid: false, error: 'Numer zawiera nieprawidłowe znaki.' };
   }
 
   return { valid: true, error: '' };
@@ -91,7 +75,7 @@ const App = () => {
 
     // Phone validation - solo questo campo ha validazione rigorosa
     if (touched.phone) {
-      const phoneValidation = validatePolishPhone(formData.phone);
+      const phoneValidation = validatePhone(formData.phone);
       if (!phoneValidation.valid) {
         newErrors.phone = phoneValidation.error;
       }
@@ -102,7 +86,7 @@ const App = () => {
     // Check if form is valid - solo campi non vuoti e telefono valido
     const allFieldsFilled =
       formData.name.trim().length > 0 &&
-      validatePolishPhone(formData.phone).valid &&
+      validatePhone(formData.phone).valid &&
       formData.address.trim().length > 0;
 
     setIsFormValid(allFieldsFilled);
@@ -781,28 +765,23 @@ const App = () => {
                                 autoComplete="tel"
                                 inputMode="numeric"
                                 pattern="[0-9+]*"
-                                maxLength={12}
+                                maxLength={15}
                                 value={formData.phone}
                                 onChange={(e) => {
-                                  // Allow only numbers and + sign, max 12 chars
                                   const value = e.target.value.replace(/[^0-9+]/g, '');
-                                  if (value.length <= 12) {
+                                  if (value.length <= 15) {
                                     handleInputChange('phone', value);
                                   }
                                 }}
                                 onKeyDown={(e) => {
-                                  // Allow: backspace, delete, tab, escape, enter, +
                                   if ([8, 9, 27, 13, 46].includes(e.keyCode) ||
-                                      // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
                                       (e.keyCode >= 35 && e.keyCode <= 40) ||
                                       ((e.ctrlKey || e.metaKey) && [65, 67, 86, 88].includes(e.keyCode))) {
                                     return;
                                   }
-                                  // Allow + only at start
                                   if (e.key === '+' && formData.phone.length === 0) {
                                     return;
                                   }
-                                  // Block non-numeric
                                   if (!/[0-9]/.test(e.key)) {
                                     e.preventDefault();
                                   }
@@ -816,9 +795,8 @@ const App = () => {
                               {touched.phone && !errors.phone && formData.phone && (
                                 <LucideCheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
                               )}
-                              {/* Character counter */}
-                              <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 9 ? 'text-green-500' : 'text-gray-400'}`}>
-                                {formData.phone.length}/9
+                              <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 7 ? 'text-green-500' : 'text-gray-400'}`}>
+                                {formData.phone.length}
                               </span>
                             </div>
                             {errors.phone && (
@@ -827,7 +805,7 @@ const App = () => {
                               </p>
                             )}
                             <p className="text-gray-400 text-[9px] sm:text-[10px] mt-1">
-                              Tylko cyfry. Polski numer: 9 cyfr (np. 500600700)
+                              Min. 7 cyfr, max. 15 cyfr
                             </p>
                         </div>
 

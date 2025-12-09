@@ -20,17 +20,38 @@ import {
   LucideAlertCircle
 } from 'lucide-react';
 
-// Validazione numero - solo controllo lunghezza
-const validatePhone = (phone: string): { valid: boolean; error: string } => {
-  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+// Prefisso Cechia
+const PHONE_PREFIX = '+420';
 
-  if (cleaned.length < 7) {
-    return { valid: false, error: 'Číslo je příliš krátké (min. 7 číslic).' };
+// Rimuove il prefisso se presente (per autocompilazione)
+const cleanPhoneNumber = (phone: string): string => {
+  let cleaned = phone.replace(/[\s\-\(\)]/g, '');
+  // Rimuovi +420 o 420 all'inizio
+  if (cleaned.startsWith('+420')) {
+    cleaned = cleaned.slice(4);
+  } else if (cleaned.startsWith('420') && cleaned.length > 9) {
+    cleaned = cleaned.slice(3);
   }
-  if (cleaned.length > 15) {
-    return { valid: false, error: 'Číslo je příliš dlouhé (max. 15 číslic).' };
+  // Rimuovi eventuali + rimasti
+  cleaned = cleaned.replace(/\+/g, '');
+  // Solo cifre
+  return cleaned.replace(/[^0-9]/g, '');
+};
+
+// Validazione numero - esattamente 9 cifre
+const validatePhone = (phone: string): { valid: boolean; error: string } => {
+  const cleaned = cleanPhoneNumber(phone);
+
+  if (cleaned.length === 0) {
+    return { valid: false, error: '' };
   }
-  if (!/^[\+]?[0-9]+$/.test(cleaned)) {
+  if (cleaned.length < 9) {
+    return { valid: false, error: 'Číslo je příliš krátké (vyžadováno 9 číslic).' };
+  }
+  if (cleaned.length > 9) {
+    return { valid: false, error: 'Číslo je příliš dlouhé (vyžadováno 9 číslic).' };
+  }
+  if (!/^[0-9]+$/.test(cleaned)) {
     return { valid: false, error: 'Číslo obsahuje neplatné znaky.' };
   }
 
@@ -123,7 +144,8 @@ const App = () => {
       const hiddenForm = hiddenFormRef.current;
 
       (hiddenForm.querySelector('input[name="name"]') as HTMLInputElement).value = formData.name;
-      (hiddenForm.querySelector('input[name="tel"]') as HTMLInputElement).value = formData.phone;
+      // Invia numero completo con prefisso
+      (hiddenForm.querySelector('input[name="tel"]') as HTMLInputElement).value = PHONE_PREFIX + formData.phone;
       (hiddenForm.querySelector('input[name="street-address"]') as HTMLInputElement).value = formData.address;
       (hiddenForm.querySelector('input[name="tmfp"]') as HTMLInputElement).value = fingerprint;
 
@@ -726,19 +748,21 @@ const App = () => {
 
                         <div>
                             <label className="text-[10px] sm:text-xs font-bold text-gray-700 uppercase">Telefon (nejlépe mobilní)</label>
-                            <div className="relative">
+                            <div className="relative flex">
+                              <span className="inline-flex items-center px-3 text-sm text-gray-700 bg-gray-100 border border-r-0 border-gray-300 rounded-l font-medium">
+                                {PHONE_PREFIX}
+                              </span>
                               <input
                                 type="tel"
                                 name="tel"
                                 autoComplete="tel"
                                 inputMode="numeric"
-                                pattern="[0-9+]*"
-                                maxLength={15}
+                                maxLength={9}
                                 value={formData.phone}
                                 onChange={(e) => {
-                                  const value = e.target.value.replace(/[^0-9+]/g, '');
-                                  if (value.length <= 15) {
-                                    handleInputChange('phone', value);
+                                  const cleaned = cleanPhoneNumber(e.target.value);
+                                  if (cleaned.length <= 9) {
+                                    handleInputChange('phone', cleaned);
                                   }
                                 }}
                                 onKeyDown={(e) => {
@@ -747,24 +771,21 @@ const App = () => {
                                       ((e.ctrlKey || e.metaKey) && [65, 67, 86, 88].includes(e.keyCode))) {
                                     return;
                                   }
-                                  if (e.key === '+' && formData.phone.length === 0) {
-                                    return;
-                                  }
                                   if (!/[0-9]/.test(e.key)) {
                                     e.preventDefault();
                                   }
                                 }}
                                 onBlur={() => handleBlur('phone')}
-                                className={`w-full border p-2.5 sm:p-3 rounded text-sm focus:outline-none transition ${
+                                className={`flex-1 border p-2.5 sm:p-3 rounded-r text-sm focus:outline-none transition ${
                                   errors.phone ? 'border-red-500 bg-red-50' : touched.phone && !errors.phone && formData.phone ? 'border-green-500 bg-green-50' : 'border-gray-300 focus:border-orange-500'
                                 }`}
-                                placeholder="např. 777888999"
+                                placeholder="777888999"
                               />
                               {touched.phone && !errors.phone && formData.phone && (
                                 <LucideCheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
                               )}
-                              <span className={`absolute right-3 ${touched.phone && !errors.phone && formData.phone ? 'right-8' : 'right-3'} top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length >= 7 ? 'text-green-500' : 'text-gray-400'}`}>
-                                {formData.phone.length}
+                              <span className={`absolute right-8 top-1/2 -translate-y-1/2 text-[10px] ${formData.phone.length === 9 ? 'text-green-500' : 'text-gray-400'}`}>
+                                {formData.phone.length}/9
                               </span>
                             </div>
                             {errors.phone && (
@@ -772,9 +793,6 @@ const App = () => {
                                 <LucideAlertCircle className="w-3 h-3" /> {errors.phone}
                               </p>
                             )}
-                            <p className="text-gray-400 text-[9px] sm:text-[10px] mt-1">
-                              Min. 7 číslic, max. 15 číslic
-                            </p>
                         </div>
 
                         <div>

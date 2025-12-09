@@ -3,14 +3,38 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { LucideCheckCircle, LucideTruck, LucidePhone, LucidePackage, LucideShieldCheck } from 'lucide-react';
+import { GoogleAdsConversion, getLandingConfig } from '@/components/GoogleAdsTracking';
 
 function ThankYouContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || 'Kliencie';
   const firstName = name.split(' ')[0];
+  const landingSlug = searchParams.get('landing') || 'heater-pl';
+  const customValue = searchParams.get('value');
+  const transactionId = searchParams.get('tid');
+  const isDouble = searchParams.get('double') === '1';
+
+  // Configurazione landing per Google Ads
+  const landingConfig = getLandingConfig(landingSlug);
+
+  // Valore dinamico per la conversione
+  const conversionValue = customValue ? parseFloat(customValue) : (landingConfig?.defaultValue || 299);
+  const currency = landingConfig?.currency || 'PLN';
+  const productName = landingConfig?.productName || 'Ceramic Tower Heater Pro 2000';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8 sm:py-16 px-4">
+      {/* Google Ads Conversion Tracking - Purchase Event con valore dinamico */}
+      {landingConfig && !isDouble && (
+        <GoogleAdsConversion
+          conversionId={landingConfig.conversionId}
+          conversionLabel={landingConfig.conversionLabel}
+          value={conversionValue}
+          currency={currency}
+          transactionId={transactionId || undefined}
+        />
+      )}
+
       <div className="max-w-2xl mx-auto">
         {/* Success Icon */}
         <div className="text-center mb-8">
@@ -84,14 +108,14 @@ function ThankYouContent() {
           <h3 className="font-bold text-gray-900 mb-4">Twoje zamówienie:</h3>
           <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
             <div className="w-16 h-16 bg-white rounded-lg p-2 shadow-sm">
-              <img src="/images/7.png" alt="Ceramic Tower Heater Pro" className="w-full h-full object-contain" />
+              <img src="/images/7.png" alt={productName} className="w-full h-full object-contain" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-gray-900">Ceramic Tower Heater Pro 2000</h4>
-              <p className="text-sm text-gray-500">2000W • do 50m²</p>
+              <h4 className="font-semibold text-gray-900">{productName}</h4>
+              <p className="text-sm text-gray-500">Zamówienie potwierdzone</p>
             </div>
             <div className="text-right">
-              <p className="text-xl font-bold text-orange-600">299 zł</p>
+              <p className="text-xl font-bold text-orange-600">{conversionValue} {currency}</p>
               <p className="text-xs text-gray-500">+ darmowa wysyłka</p>
             </div>
           </div>

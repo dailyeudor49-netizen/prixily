@@ -126,7 +126,6 @@ export function GoogleAdsConversion({
 }
 
 // Configurazioni per diverse landing page
-// Ogni landing g-* avrà la sua configurazione qui
 export const LANDING_CONFIGS: Record<string, {
   conversionId: string;
   conversionLabel: string;
@@ -134,21 +133,20 @@ export const LANDING_CONFIGS: Record<string, {
   currency: string;
   productName: string;
 }> = {
-  'g-heater-pl': {
-    conversionId: 'AW-XXXXXXXXXX', // Sostituire con ID reale
-    conversionLabel: 'XXXXXXXXXXXXXXXXXXX', // Sostituire con etichetta reale
+  'heater-pl': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
     defaultValue: 299,
     currency: 'PLN',
     productName: 'Ceramic Tower Heater Pro 2000'
   },
-  // Aggiungi altre landing qui...
-  // 'g-altra-landing': {
-  //   conversionId: 'AW-YYYYYYYYYY',
-  //   conversionLabel: 'YYYYYYYYYYYYYYYYYYY',
-  //   defaultValue: 199,
-  //   currency: 'PLN',
-  //   productName: 'Altro Prodotto'
-  // },
+  'g-heater-pl': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
+    defaultValue: 299,
+    currency: 'PLN',
+    productName: 'Ceramic Tower Heater Pro 2000'
+  },
 };
 
 // Funzione helper per ottenere la config di una landing

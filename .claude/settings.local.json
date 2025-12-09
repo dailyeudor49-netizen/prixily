@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npx next start -p 3011)",
+      "Bash(npx next start -p 3012)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Add Google Ads tracking and g-heater-pl landing page\n\n- Add GoogleAdsTracking component with conversion tracking\n- Create g-ty thank you page with dynamic conversion values\n- Create g-heater-pl landing with full product sections\n- Add dziekujemy thank you page\n- Update form validation and phone input\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfix: Simplify contact form and fix API integration\n\n- Reduce form to 3 fields: name, phone, address (single field)\n- Remove postal code and city separate fields\n- Fix API submission with hidden iframe (bypass CORS)\n- Add user agent fallback when fingerprint unavailable\n- Remove unnecessary field validations (keep only phone)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

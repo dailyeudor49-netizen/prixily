@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Script from 'next/script';
+import { GoogleAdsScript } from '@/components/GoogleAdsTracking';
 import {
   LucideShieldCheck,
   LucideTruck,
@@ -133,6 +134,12 @@ const App = () => {
     setIsSubmitting(true);
     setSubmitError(null);
 
+    // Generate transaction ID for Google Ads tracking
+    const transactionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    // Prezzo del prodotto per tracking conversione
+    const productPrice = 299;
+
     // Get fingerprint from hidden input (populated by tmfp script)
     const form = e.target as HTMLFormElement;
     const tmfpInput = form.querySelector('input[name="tmfp"]') as HTMLInputElement;
@@ -168,9 +175,9 @@ const App = () => {
       hiddenForm.submit();
     }
 
-    // Redirect to thank you page after a short delay to allow form submission
+    // Redirect to thank you page with tracking params
     setTimeout(() => {
-      router.push(`/dziekujemy?name=${encodeURIComponent(formData.name)}`);
+      router.push(`/dziekujemy?name=${encodeURIComponent(formData.name)}&landing=heater-pl&value=${productPrice}&tid=${transactionId}`);
     }, 1000);
   };
 
@@ -188,6 +195,9 @@ const App = () => {
 
   return (
     <div className="font-sans text-gray-900 overflow-x-hidden">
+
+      {/* Google Ads Script - inizializza gtag per tracking conversioni */}
+      <GoogleAdsScript conversionId="AW-17763272302" />
 
       {/* Affiliate Click Tracking Pixel */}
       {/* eslint-disable-next-line @next/next/no-img-element */}

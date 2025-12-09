@@ -18,7 +18,7 @@ function ThankYouContent() {
   const landingConfig = getLandingConfig(landingSlug);
 
   // Valore dinamico per la conversione
-  const conversionValue = customValue ? parseFloat(customValue) : (landingConfig?.defaultValue || 1790);
+  const conversionValue = customValue ? parseFloat(customValue) : (landingConfig?.defaultValue || 1749);
   const currency = landingConfig?.currency || 'CZK';
   const productName = landingConfig?.productName || 'Ceramic Tower Heater Pro 2000';
 

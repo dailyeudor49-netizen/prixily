@@ -150,7 +150,7 @@ export const LANDING_CONFIGS: Record<string, {
   'heater-cz': {
     conversionId: 'AW-17763272302',
     conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
-    defaultValue: 1790,
+    defaultValue: 1749,
     currency: 'CZK',
     productName: 'Ceramic Tower Heater Pro 2000'
   },

@@ -128,7 +128,7 @@ const App = () => {
     setSubmitError(null);
 
     const transactionId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const productPrice = 1790;
+    const productPrice = 1749;
 
     const form = e.target as HTMLFormElement;
     const tmfpInput = form.querySelector('input[name="tmfp"]') as HTMLInputElement;
@@ -220,10 +220,10 @@ const App = () => {
 
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <div className="text-center sm:text-left w-full sm:w-auto">
-                  <p className="text-gray-400 text-xs sm:text-sm line-through">Cena: 3 580 Kč</p>
-                  <p className="text-3xl sm:text-4xl font-bold text-gray-900">1 790 Kč</p>
+                  <p className="text-gray-400 text-xs sm:text-sm line-through">Cena: 3 498 Kč</p>
+                  <p className="text-3xl sm:text-4xl font-bold text-gray-900">1 749 Kč</p>
                   <p className="text-green-600 text-xs sm:text-sm font-semibold bg-green-50 px-2 py-1 rounded inline-block">
-                    Ušetříte 1 790 Kč
+                    Ušetříte 1 749 Kč
                   </p>
                 </div>
                 <button
@@ -701,7 +701,7 @@ const App = () => {
                     <div className="space-y-2 text-xs sm:text-sm mb-4 sm:mb-6">
                         <div className="flex justify-between">
                             <span className="text-gray-600">Akční cena</span>
-                            <span className="font-bold">1 790 Kč</span>
+                            <span className="font-bold">1 749 Kč</span>
                         </div>
                         <div className="flex justify-between text-green-600">
                             <span>Doprava (Dobírka)</span>
@@ -711,7 +711,7 @@ const App = () => {
 
                     <div className="border-t pt-3 sm:pt-4 flex justify-between items-center">
                         <span className="font-bold text-sm sm:text-lg">Celkem:</span>
-                        <span className="text-2xl sm:text-3xl font-bold text-orange-600">1 790 Kč</span>
+                        <span className="text-2xl sm:text-3xl font-bold text-orange-600">1 749 Kč</span>
                     </div>
 
                     <div className="mt-4 sm:mt-6 bg-yellow-50 border border-yellow-100 p-2 sm:p-3 rounded text-[10px] sm:text-xs text-yellow-800 flex gap-2">
@@ -903,8 +903,8 @@ const App = () => {
 
         <div className="flex justify-between items-center gap-2 sm:gap-3">
             <div className="flex flex-col">
-                <span className="text-[9px] sm:text-[10px] text-gray-500 line-through">3 580 Kč</span>
-                <span className="text-xl sm:text-2xl font-bold text-gray-900 leading-none">1 790 Kč</span>
+                <span className="text-[9px] sm:text-[10px] text-gray-500 line-through">3 498 Kč</span>
+                <span className="text-xl sm:text-2xl font-bold text-gray-900 leading-none">1 749 Kč</span>
             </div>
             <button
                 onClick={scrollToOrder}

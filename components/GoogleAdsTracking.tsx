@@ -161,6 +161,13 @@ export const LANDING_CONFIGS: Record<string, {
     currency: 'EUR',
     productName: 'Ceramic Tower Heater Pro 2000'
   },
+  'heater-hu': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
+    defaultValue: 28599,
+    currency: 'HUF',
+    productName: 'Ceramic Tower Heater Pro 2000'
+  },
 };
 
 // Funzione helper per ottenere la config di una landing

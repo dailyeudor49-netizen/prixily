@@ -202,23 +202,23 @@ const App = () => {
         <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 lg:py-16">
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <span className="inline-block bg-blue-100 text-blue-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full mb-3 sm:mb-4 uppercase tracking-wide">
-                Bestseller tutto l'anno
+              <span className="inline-block bg-orange-100 text-orange-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full mb-3 sm:mb-4 uppercase tracking-wide">
+                Bestseller stagione invernale
               </span>
               <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight mb-3 sm:mb-4">
-                Fresco d'estate, caldo d'inverno – <span className="text-blue-600">un solo dispositivo.</span>
+                Riscalda casa tua in 2 minuti – <span className="text-orange-600">senza unità esterna.</span>
               </h1>
               <p className="text-sm sm:text-lg text-gray-600 mb-4 sm:mb-6">
-                Climatizzatore a parete 2 in 1 con tecnologia inverter. Raffredda e riscalda ambienti <strong>fino a 40m²</strong>. Ordina oggi, paghi al corriere alla consegna.
+                Climatizzatore a parete 2 in 1 <strong>senza motore esterno</strong>. Riscalda d'inverno e rinfresca d'estate ambienti <strong>fino a 60m²</strong>. Ordina oggi, paghi al corriere alla consegna.
               </p>
 
               <ul className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-1 gap-2 sm:gap-3 mb-4 sm:mb-8">
                 {[
                   "Pagamento alla consegna",
-                  "Raffrescamento + Riscaldamento",
-                  "Classe A++ - bollette basse",
-                  "Per ambienti fino a 40m²",
-                  "Silenzioso + Telecomando incluso"
+                  "SENZA unità esterna",
+                  "Riscaldamento + Raffrescamento",
+                  "Per ambienti fino a 60m²",
+                  "Classe A++ - bollette basse"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center text-sm sm:text-base">
                     <LucideCheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2 flex-shrink-0" />
@@ -247,20 +247,20 @@ const App = () => {
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-4 text-[10px] sm:text-xs text-gray-500">
                 <div className="flex items-center bg-gray-50 px-2 py-1 rounded"><LucideShieldCheck className="w-3 h-3 sm:w-4 sm:h-4 mr-1" /> Garanzia 24 mesi</div>
                 <div className="flex items-center bg-gray-50 px-2 py-1 rounded"><LucideTruck className="w-3 h-3 sm:w-4 sm:h-4 mr-1" /> Spedizione 24h</div>
-                <div className="flex items-center bg-gray-50 px-2 py-1 rounded"><LucideHome className="w-3 h-3 sm:w-4 sm:h-4 mr-1" /> Fino a 40m²</div>
+                <div className="flex items-center bg-gray-50 px-2 py-1 rounded"><LucideHome className="w-3 h-3 sm:w-4 sm:h-4 mr-1" /> Fino a 60m²</div>
               </div>
             </div>
 
             <div className="relative order-1 lg:order-2">
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative max-w-xs sm:max-w-sm mx-auto lg:max-w-none">
-                <img src="/images/1.png" alt="Climatizzatore a Parete Pro 2in1" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative max-w-xs sm:max-w-sm mx-auto lg:max-w-none">
+                <img src="/images/1.png" alt="Climatizzatore a Parete Pro 2in1 Senza Unità Esterna" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-red-600 text-white font-bold px-2 sm:px-4 py-1 sm:py-2 rounded-full shadow-md text-xs sm:text-sm">
                   -50% OFFERTA
                 </div>
-                <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 bg-white/95 backdrop-blur rounded-lg p-3 sm:p-4 shadow-lg border-l-4 border-blue-500">
-                  <p className="font-bold text-gray-900 text-xs sm:text-sm">100% Pagamento alla consegna</p>
-                  <p className="text-[10px] sm:text-xs text-gray-600">Zero rischi. Paghi solo quando vedi il pacco.</p>
+                <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 bg-white/95 backdrop-blur rounded-lg p-3 sm:p-4 shadow-lg border-l-4 border-orange-500">
+                  <p className="font-bold text-gray-900 text-xs sm:text-sm">SENZA motore esterno</p>
+                  <p className="text-[10px] sm:text-xs text-gray-600">Installazione facile. Nessun permesso condominiale.</p>
                 </div>
               </div>
             </div>
@@ -269,17 +269,17 @@ const App = () => {
       </header>
 
       {/* DUAL MODE BADGE */}
-      <section className="py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
+      <section className="py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white">
         <div className="container mx-auto px-3 sm:px-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-8 text-center">
             <div className="flex items-center gap-2">
-              <LucideSnowflake className="w-5 h-5 sm:w-6 sm:h-6" />
-              <span className="font-bold text-sm sm:text-lg">Estate: Aria fresca fino a 16°C</span>
+              <LucideFlame className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="font-bold text-sm sm:text-lg">Inverno: Riscaldamento rapido fino a 30°C</span>
             </div>
             <div className="hidden sm:block w-px h-6 bg-white/30"></div>
             <div className="flex items-center gap-2">
-              <LucideFlame className="w-5 h-5 sm:w-6 sm:h-6" />
-              <span className="font-bold text-sm sm:text-lg">Inverno: Riscaldamento fino a 30°C</span>
+              <LucideSnowflake className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="font-bold text-sm sm:text-lg">Estate: Aria fresca fino a 16°C</span>
             </div>
           </div>
         </div>
@@ -290,19 +290,19 @@ const App = () => {
         <div className="container mx-auto px-3 sm:px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center">
             <div className="order-2 md:order-1">
-              <img src="/images/2.png" alt="Casa calda d'estate" className="rounded-xl shadow-lg w-full h-48 sm:h-80 object-cover" />
+              <img src="/images/2.png" alt="Casa fredda d'inverno" className="rounded-xl shadow-lg w-full h-48 sm:h-80 object-cover" />
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Afa d'estate e freddo d'inverno?</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">Casa fredda e bollette alle stelle?</h2>
               <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">
-                Stanco di soffrire il caldo in estate e pagare bollette astronomiche in inverno? Un solo dispositivo risolve entrambi i problemi.
+                Il riscaldamento centralizzato non basta e i termosifoni consumano troppo? Vorresti un condizionatore ma il condominio non permette l'unità esterna?
               </p>
-              <div className="bg-blue-50 p-4 sm:p-6 rounded-lg border-l-4 border-blue-500">
+              <div className="bg-orange-50 p-4 sm:p-6 rounded-lg border-l-4 border-orange-500">
                 <h3 className="font-bold text-gray-900 text-base sm:text-lg mb-2 flex items-center gap-2">
-                  <LucideZap className="text-blue-600 w-5 h-5"/> Soluzione: Comfort tutto l'anno
+                  <LucideZap className="text-orange-600 w-5 h-5"/> Soluzione: Caldo immediato senza unità esterna
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-700">
-                  Il Climatizzatore a Parete Pro 2in1 raffresca o riscalda ambienti <strong>fino a 40m²</strong> in pochi minuti. Un investimento, doppio beneficio.
+                  Il Climatizzatore a Parete Pro 2in1 riscalda ambienti <strong>fino a 60m²</strong> in 2 minuti. <strong>Nessun motore esterno</strong> = nessun permesso condominiale richiesto!
                 </p>
               </div>
             </div>
@@ -315,13 +315,13 @@ const App = () => {
         <div className="container mx-auto px-3 sm:px-4">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 max-w-4xl mx-auto">
                 {[
-                    { icon: LucideSnowflake, label: "Raffrescamento", sub: "Fino a 16°C" },
                     { icon: LucideFlame, label: "Riscaldamento", sub: "Fino a 30°C" },
-                    { icon: LucideThermometer, label: "Termostato", sub: "Temperatura costante" },
-                    { icon: LucideHome, label: "Fino a 40m²", sub: "Ampia copertura" }
+                    { icon: LucideSnowflake, label: "Raffrescamento", sub: "Fino a 16°C" },
+                    { icon: LucideThermometer, label: "Senza unità esterna", sub: "Zero permessi" },
+                    { icon: LucideHome, label: "Fino a 60m²", sub: "Ampia copertura" }
                 ].map((item, idx) => (
                     <div key={idx} className="bg-white p-3 sm:p-4 rounded-xl shadow-sm text-center">
-                        <item.icon className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-1 sm:mb-2 text-blue-600" />
+                        <item.icon className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-1 sm:mb-2 text-orange-600" />
                         <h3 className="font-bold text-gray-900 text-xs sm:text-base">{item.label}</h3>
                         <p className="text-[10px] sm:text-xs text-gray-500">{item.sub}</p>
                     </div>
@@ -331,15 +331,15 @@ const App = () => {
       </section>
 
       {/* INVERTER TECHNOLOGY */}
-      <section className="py-10 sm:py-16 bg-gradient-to-br from-blue-50 to-cyan-50">
+      <section className="py-10 sm:py-16 bg-gradient-to-br from-orange-50 to-amber-50">
         <div className="container mx-auto px-3 sm:px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-6 sm:gap-10 items-center">
             <div className="order-2 md:order-1">
-              <span className="inline-block bg-blue-100 text-blue-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+              <span className="inline-block bg-orange-100 text-orange-800 text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
                 Tecnologia Inverter
               </span>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-gray-900">
-                Efficienza che <span className="text-blue-600">taglia le bollette</span>
+                Efficienza che <span className="text-orange-600">taglia le bollette</span>
               </h2>
               <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">
                 Grazie alla tecnologia inverter, il compressore regola automaticamente la velocità per mantenere la temperatura desiderata <strong>senza sprechi</strong>. Questo significa:
@@ -379,9 +379,9 @@ const App = () => {
             </div>
 
             <div className="order-1 md:order-2">
-              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-xl border border-blue-100">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-xl border border-orange-100">
                 <div className="text-center mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full mx-auto flex items-center justify-center mb-3">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mx-auto flex items-center justify-center mb-3">
                     <LucideZap className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                   </div>
                   <h3 className="font-bold text-lg sm:text-xl text-gray-900">Confronto consumi</h3>
@@ -442,6 +442,37 @@ const App = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            {/* Modalità Caldo - PRIMA */}
+            <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 sm:p-8 rounded-2xl border border-orange-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                  <LucideFlame className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg sm:text-xl text-gray-900">Modalità Riscaldamento</h3>
+                  <p className="text-sm text-orange-600">Perfetta per l'inverno</p>
+                </div>
+              </div>
+              <ul className="space-y-2 text-sm sm:text-base text-gray-700">
+                <li className="flex items-center gap-2">
+                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                  Riscalda fino a 30°C
+                </li>
+                <li className="flex items-center gap-2">
+                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                  Riscaldamento rapido in 2 min
+                </li>
+                <li className="flex items-center gap-2">
+                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                  Non brucia ossigeno
+                </li>
+                <li className="flex items-center gap-2">
+                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                  Termostato programmabile
+                </li>
+              </ul>
+            </div>
+
             {/* Modalità Freddo */}
             <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 sm:p-8 rounded-2xl border border-blue-100">
               <div className="flex items-center gap-3 mb-4">
@@ -472,37 +503,6 @@ const App = () => {
                 </li>
               </ul>
             </div>
-
-            {/* Modalità Caldo */}
-            <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 sm:p-8 rounded-2xl border border-orange-100">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                  <LucideFlame className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg sm:text-xl text-gray-900">Modalità Riscaldamento</h3>
-                  <p className="text-sm text-orange-600">Perfetta per l'inverno</p>
-                </div>
-              </div>
-              <ul className="space-y-2 text-sm sm:text-base text-gray-700">
-                <li className="flex items-center gap-2">
-                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                  Riscalda fino a 30°C
-                </li>
-                <li className="flex items-center gap-2">
-                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                  Riscaldamento rapido in 2 min
-                </li>
-                <li className="flex items-center gap-2">
-                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                  Non brucia ossigeno
-                </li>
-                <li className="flex items-center gap-2">
-                  <LucideCheckCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                  Termostato programmabile
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </section>
@@ -516,7 +516,7 @@ const App = () => {
                     <span className="px-2 sm:px-4 py-1 bg-white border rounded-full text-xs sm:text-sm text-gray-600">Camera da letto</span>
                     <span className="px-2 sm:px-4 py-1 bg-white border rounded-full text-xs sm:text-sm text-gray-600">Ufficio</span>
                     <span className="px-2 sm:px-4 py-1 bg-white border rounded-full text-xs sm:text-sm text-gray-600">Soggiorno</span>
-                    <span className="px-2 sm:px-4 py-1 bg-white border rounded-full text-xs sm:text-sm text-gray-600">fino a 40m²</span>
+                    <span className="px-2 sm:px-4 py-1 bg-white border rounded-full text-xs sm:text-sm text-gray-600">fino a 60m²</span>
                 </div>
             </div>
 
@@ -610,7 +610,7 @@ const App = () => {
                     </div>
                     <div className="grid grid-cols-2 border-b border-gray-100 pb-2">
                         <span className="text-gray-500">Copertura:</span>
-                        <span className="font-semibold text-blue-600">fino a 40m²</span>
+                        <span className="font-semibold text-orange-600">fino a 60m²</span>
                     </div>
                     <div className="grid grid-cols-2 border-b border-gray-100 pb-2">
                         <span className="text-gray-500">Classe energetica:</span>
@@ -673,7 +673,7 @@ const App = () => {
                         </tr>
                         <tr>
                             <td className="py-3 sm:py-4 px-2 sm:px-4 font-semibold text-gray-700">Copertura</td>
-                            <td className="py-3 sm:py-4 px-2 sm:px-4 text-center bg-blue-50 font-bold text-blue-700">40m²</td>
+                            <td className="py-3 sm:py-4 px-2 sm:px-4 text-center bg-orange-50 font-bold text-orange-700">60m²</td>
                             <td className="py-3 sm:py-4 px-2 sm:px-4 text-center text-gray-600">25m²</td>
                             <td className="py-3 sm:py-4 px-2 sm:px-4 text-center text-gray-500">15m²</td>
                         </tr>
@@ -690,19 +690,19 @@ const App = () => {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
                     <div className="text-yellow-400 mb-2 flex text-sm">★★★★★</div>
-                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Finalmente un solo apparecchio per tutto l'anno! D'estate lo uso per il fresco, d'inverno per riscaldare. Bollette dimezzate!&quot;</p>
+                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Con questo inverno gelido è stato una salvezza! Casa calda in 2 minuti. E niente unità esterna = zero problemi con il condominio!&quot;</p>
                     <div className="font-bold text-gray-900 text-sm">– Marco R., Milano</div>
                     <span className="text-[10px] sm:text-xs text-green-600 flex items-center mt-1 font-semibold"><LucideCheckCircle className="w-3 h-3 mr-1"/> Verificato</span>
                 </div>
                 <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm">
                     <div className="text-yellow-400 mb-2 flex text-sm">★★★★★</div>
-                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Silenziosissimo! Lo uso in camera da letto e non mi sveglia mai. La modalità Sleep è fantastica.&quot;</p>
+                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Silenziosissimo! Lo uso in camera da letto per riscaldarla di notte. La modalità Sleep è fantastica.&quot;</p>
                     <div className="font-bold text-gray-900 text-sm">– Giulia M., Roma</div>
                     <span className="text-[10px] sm:text-xs text-green-600 flex items-center mt-1 font-semibold"><LucideCheckCircle className="w-3 h-3 mr-1"/> Verificato</span>
                 </div>
                  <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm sm:col-span-2 md:col-span-1">
                     <div className="text-yellow-400 mb-2 flex text-sm">★★★★☆</div>
-                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Copre tranquillamente il mio soggiorno di 35m². Installazione facile, anche da solo.&quot;</p>
+                    <p className="text-gray-700 mb-3 sm:mb-4 italic text-xs sm:text-base">&quot;Copre il mio soggiorno di 55m² senza problemi. Senza motore esterno, perfetto per il mio appartamento!&quot;</p>
                     <div className="font-bold text-gray-900 text-sm">– Antonio P., Napoli</div>
                     <span className="text-[10px] sm:text-xs text-green-600 flex items-center mt-1 font-semibold"><LucideCheckCircle className="w-3 h-3 mr-1"/> Verificato</span>
                 </div>
@@ -728,7 +728,7 @@ const App = () => {
                         </div>
                         <div>
                             <h4 className="font-bold text-sm sm:text-base">Climatizzatore a Parete Pro 2in1</h4>
-                            <p className="text-xs text-gray-500">Caldo + Freddo • fino a 40m²</p>
+                            <p className="text-xs text-gray-500">Caldo + Freddo • fino a 60m² • Senza unità esterna</p>
                             <div className="text-[10px] sm:text-xs text-green-600 font-semibold mt-1 flex items-center">
                                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
                                 Disponibile
@@ -905,7 +905,7 @@ const App = () => {
             {[
               { q: "Posso pagare con carta al corriere?", a: "Sì, la maggior parte dei corrieri ha il POS. Puoi pagare anche in contanti." },
               { q: "Quanto costa la spedizione?", a: "Nell'offerta attuale la spedizione in contrassegno è completamente gratuita." },
-              { q: "Per quanti metri quadri è adatto?", a: "Il climatizzatore copre ambienti fino a 40m². Con la sua potenza di 9000/12000 BTU li raffredda o riscalda molto rapidamente." },
+              { q: "Per quanti metri quadri è adatto?", a: "Il climatizzatore copre ambienti fino a 60m². Con la sua potenza di 9000/12000 BTU li riscalda o raffredda molto rapidamente." },
               { q: "Serve un tecnico per l'installazione?", a: "Il kit di montaggio è incluso e l'installazione è semplice. Se preferisci, puoi comunque chiamare un tecnico." },
               { q: "Quando riceverò il pacco?", a: "Gli ordini entro le 14:00 vengono spediti lo stesso giorno. Il pacco arriva in 24-48h." }
             ].map((faq, idx) => (
@@ -932,8 +932,8 @@ const App = () => {
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-2 sm:p-3 md:hidden z-50 shadow-[0_-5px_15px_rgba(0,0,0,0.1)] safe-area-pb">
         <div className="flex justify-center items-center gap-3 sm:gap-4 mb-1.5 sm:mb-2 text-[9px] sm:text-[10px] text-gray-500 uppercase font-semibold tracking-wider">
             <span className="flex items-center text-green-600"><LucideCheckCircle className="w-3 h-3 mr-1" /> Alla consegna</span>
+            <span className="flex items-center text-orange-600"><LucideFlame className="w-3 h-3 mr-1" /> Caldo</span>
             <span className="flex items-center"><LucideSnowflake className="w-3 h-3 mr-1" /> Freddo</span>
-            <span className="flex items-center"><LucideFlame className="w-3 h-3 mr-1" /> Caldo</span>
         </div>
 
         <div className="flex justify-between items-center gap-2 sm:gap-3">

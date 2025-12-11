@@ -182,6 +182,13 @@ export const LANDING_CONFIGS: Record<string, {
     currency: 'EUR',
     productName: 'Climatizzatore a Parete Pro 2in1'
   },
+  'wallheater-un-pl': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
+    defaultValue: 299,
+    currency: 'PLN',
+    productName: 'Klimatyzator Ścienny Pro 2w1'
+  },
 };
 
 // Funzione helper per ottenere la config di una landing

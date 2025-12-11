@@ -175,6 +175,13 @@ export const LANDING_CONFIGS: Record<string, {
     currency: 'EUR',
     productName: 'Ceramic Tower Heater Pro 2000'
   },
+  'wallheater-it': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
+    defaultValue: 199.99,
+    currency: 'EUR',
+    productName: 'Climatizzatore a Parete Pro 2in1'
+  },
 };
 
 // Funzione helper per ottenere la config di una landing

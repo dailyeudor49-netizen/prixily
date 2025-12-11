@@ -14,7 +14,8 @@
       "Bash(npm run dev:*)",
       "Bash(npm run start)",
       "Bash(node convert-images.js:*)",
-      "Bash(node fix-image7.js:*)"
+      "Bash(node fix-image7.js:*)",
+      "Bash(node fix-images-final.js:*)"
     ],
     "deny": [],
     "ask": []

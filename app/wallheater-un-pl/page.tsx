@@ -86,22 +86,19 @@ const App = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: '',
-    postalCode: ''
+    address: ''
   });
 
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
-    address: '',
-    postalCode: ''
+    address: ''
   });
 
   const [touched, setTouched] = useState({
     name: false,
     phone: false,
-    address: false,
-    postalCode: false
+    address: false
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -111,8 +108,7 @@ const App = () => {
     const newErrors = {
       name: '',
       phone: '',
-      address: '',
-      postalCode: ''
+      address: ''
     };
 
     if (touched.phone) {
@@ -149,8 +145,7 @@ const App = () => {
     setTouched({
       name: true,
       phone: true,
-      address: true,
-      postalCode: true
+      address: true
     });
 
     if (!isFormValid) return;
@@ -171,7 +166,6 @@ const App = () => {
       (hiddenForm.querySelector('input[name="name"]') as HTMLInputElement).value = formData.name;
       (hiddenForm.querySelector('input[name="tel"]') as HTMLInputElement).value = PHONE_PREFIX + formData.phone;
       (hiddenForm.querySelector('input[name="street-address"]') as HTMLInputElement).value = formData.address;
-      (hiddenForm.querySelector('input[name="postal-code"]') as HTMLInputElement).value = formData.postalCode;
       (hiddenForm.querySelector('input[name="tmfp"]') as HTMLInputElement).value = fingerprint;
 
       if (!fingerprint) {
@@ -403,19 +397,6 @@ const App = () => {
                     onChange={(e) => handleInputChange('address', e.target.value)}
                     className="w-full border border-gray-300 p-3 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                     placeholder="ul. Główna 1, 00-001 Warszawa"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-gray-600 mb-1">Kod pocztowy (opcjonalnie)</label>
-                  <input
-                    type="text"
-                    name="postal-code"
-                    autoComplete="postal-code"
-                    value={formData.postalCode}
-                    onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                    className="w-full border border-gray-300 p-3 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                    placeholder="00-001"
                   />
                 </div>
 
@@ -1203,19 +1184,6 @@ const App = () => {
                             />
                         </div>
 
-                        <div>
-                            <label className="text-[10px] font-bold text-gray-700 uppercase">Kod pocztowy (opcjonalnie)</label>
-                            <input
-                              type="text"
-                              name="postal-code"
-                              autoComplete="postal-code"
-                              value={formData.postalCode}
-                              onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                              className="w-full border border-gray-300 p-2.5 rounded text-sm focus:outline-none focus:border-blue-500 transition"
-                              placeholder="00-001"
-                            />
-                        </div>
-
                         <div className="mt-3 p-2.5 bg-green-50 border border-green-200 rounded flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full border-4 border-green-600 bg-white"></div>
@@ -1371,7 +1339,6 @@ const App = () => {
         <input type="hidden" name="name" value="" />
         <input type="hidden" name="tel" value="" />
         <input type="hidden" name="street-address" value="" />
-        <input type="hidden" name="postal-code" value="" />
         <input type="hidden" name="tmfp" value="" />
         <input type="hidden" name="ua" value="" />
         <input type="hidden" name="utm_source" value="" />

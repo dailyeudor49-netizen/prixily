@@ -192,11 +192,11 @@ const App = () => {
   };
 
   const productImages = [
-    '/images/1.png',
-    '/images/2.png',
-    '/images/3.png',
-    '/images/4.png',
-    '/images/5.png',
+    '/images/condizionatore wall/1.png',
+    '/images/condizionatore wall/2.png',
+    '/images/condizionatore wall/3.png',
+    '/images/condizionatore wall/4.png',
+    '/images/condizionatore wall/5.png',
   ];
 
   // ============================================
@@ -596,7 +596,7 @@ const App = () => {
 
             <div className="relative order-1">
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl overflow-hidden shadow-xl relative max-w-xs mx-auto">
-                <img src="/images/1.png" alt="Climatizzatore a Parete Pro 2in1 Senza Unità Esterna" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
+                <img src="/images/condizionatore wall/1.png" alt="Climatizzatore a Parete Pro 2in1 Senza Unità Esterna" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 <div className="absolute top-2 right-2 bg-red-600 text-white font-bold px-2 py-1 rounded-full shadow-md text-xs">
                   -50% OFFERTA
@@ -632,7 +632,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-5xl">
           <div className="grid gap-6 items-center">
             <div className="order-2">
-              <img src="/images/2.png" alt="Casa fredda d'inverno" className="rounded-xl shadow-lg w-full h-48 object-cover" />
+              <img src="/images/condizionatore wall/2.png" alt="Casa fredda d'inverno" className="rounded-xl shadow-lg w-full h-48 object-cover" />
             </div>
             <div className="order-1">
               <h2 className="text-xl font-bold mb-3 text-gray-800">Casa fredda e bollette alle stelle?</h2>
@@ -865,14 +865,14 @@ const App = () => {
             <div className="grid gap-4 max-w-5xl mx-auto">
                 <div className="bg-white p-4 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 bg-gray-50">
-                         <img src="/images/3.png" alt="Telecomando" className="w-full h-auto object-contain" />
+                         <img src="/images/condizionatore wall/3.png" alt="Telecomando" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base font-bold mb-2">Controllo totale dal divano</h3>
                     <p className="text-xs text-gray-600">Con il telecomando cambi modalità, temperatura e velocità ventola. Display LED intuitivo sul dispositivo.</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 bg-gray-50">
-                        <img src="/images/4.png" alt="Installazione a parete" className="w-full h-auto object-contain" />
+                        <img src="/images/condizionatore wall/4.png" alt="Installazione a parete" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base font-bold mb-2">Installazione semplice</h3>
                     <p className="text-xs text-gray-600">Design sottile a parete, non occupa spazio a terra. Kit di montaggio incluso nella confezione.</p>
@@ -927,7 +927,7 @@ const App = () => {
                     </p>
                 </div>
                 <div>
-                    <img src="/images/5.png" alt="Design elegante" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
+                    <img src="/images/condizionatore wall/5.png" alt="Design elegante" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
                 </div>
             </div>
         </div>
@@ -938,7 +938,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-4xl">
             <div className="grid gap-6 mb-10 items-center">
                  <div className="order-2">
-                    <img src="/images/6.png" alt="Vista laterale" className="rounded-lg shadow w-full h-48 object-cover" />
+                    <img src="/images/condizionatore wall/6.png" alt="Vista laterale" className="rounded-lg shadow w-full h-48 object-cover" />
                 </div>
                 <div className="space-y-2 text-xs order-1">
                     <h3 className="text-lg font-bold mb-4 text-gray-800">Specifiche tecniche</h3>
@@ -1066,7 +1066,7 @@ const App = () => {
                 <div className="p-4 bg-gray-50 border-b border-gray-100">
                     <div className="flex gap-3 mb-4">
                         <div className="w-16 h-16 bg-white rounded-lg p-2 shadow-sm flex-shrink-0">
-                            <img src="/images/7.png" alt="Prodotto" className="w-full h-full object-contain" />
+                            <img src="/images/condizionatore wall/7.png" alt="Prodotto" className="w-full h-full object-contain" />
                         </div>
                         <div>
                             <h4 className="font-bold text-sm">Climatizzatore a Parete Pro 2in1</h4>

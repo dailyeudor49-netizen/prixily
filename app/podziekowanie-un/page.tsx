@@ -108,7 +108,7 @@ function ThankYouContent() {
           <h3 className="font-bold text-gray-900 mb-4">Twoje zamówienie:</h3>
           <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
             <div className="w-16 h-16 bg-white rounded-lg p-2 shadow-sm">
-              <img src="/images/7.png" alt={productName} className="w-full h-full object-contain" />
+              <img src="/images/condizionatore wall/7.png" alt={productName} className="w-full h-full object-contain" />
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-gray-900">{productName}</h4>

@@ -9,7 +9,10 @@
       "Bash(git push:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfix: Simplify contact form and fix API integration\n\n- Reduce form to 3 fields: name, phone, address (single field)\n- Remove postal code and city separate fields\n- Fix API submission with hidden iframe (bypass CORS)\n- Add user agent fallback when fingerprint unavailable\n- Remove unnecessary field validations (keep only phone)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git commit -m \"$(cat <<''EOF''\nfix: Update Czech landing price to 1749 CZK\n\n- Change price from 1790 to 1749 CZK\n- Update comparison price to 3498 CZK\n- Update savings amount to 1749 CZK\n- Update GoogleAdsTracking default value\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(set NEXT_TURBOPACK=0)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run start)"
     ],
     "deny": [],
     "ask": []

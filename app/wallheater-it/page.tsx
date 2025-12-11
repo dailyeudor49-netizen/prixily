@@ -632,7 +632,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-5xl">
           <div className="grid gap-6 items-center">
             <div className="order-2">
-              <img src="/images/condizionatore-wall/2.webp" alt="Casa fredda d'inverno" className="rounded-xl shadow-lg w-full h-48 object-cover" />
+              <img src="/images/condizionatore-wall/2.webp" alt="Casa fredda d'inverno" className="rounded-xl shadow-lg w-full aspect-square object-cover" />
             </div>
             <div className="order-1">
               <h2 className="text-xl font-bold mb-3 text-gray-800">Casa fredda e bollette alle stelle?</h2>
@@ -938,7 +938,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-4xl">
             <div className="grid gap-6 mb-10 items-center">
                  <div className="order-2">
-                    <img src="/images/condizionatore-wall/6.webp" alt="Vista laterale" className="rounded-lg shadow w-full h-48 object-cover" />
+                    <img src="/images/condizionatore-wall/6.webp" alt="Vista laterale" className="rounded-lg shadow w-full aspect-square object-cover" />
                 </div>
                 <div className="space-y-2 text-xs order-1">
                     <h3 className="text-lg font-bold mb-4 text-gray-800">Specifiche tecniche</h3>

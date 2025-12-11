@@ -12,7 +12,8 @@
       "Bash(git commit:*)",
       "Bash(set NEXT_TURBOPACK=0)",
       "Bash(npm run dev:*)",
-      "Bash(npm run start)"
+      "Bash(npm run start)",
+      "Bash(node convert-images.js:*)"
     ],
     "deny": [],
     "ask": []

@@ -203,11 +203,11 @@ const App = () => {
   };
 
   const productImages = [
-    '/images/condizionatore wall/1.png',
-    '/images/condizionatore wall/2.png',
-    '/images/condizionatore wall/3.png',
-    '/images/condizionatore wall/4.png',
-    '/images/condizionatore wall/5.png',
+    '/images/condizionatore-wall/1.webp',
+    '/images/condizionatore-wall/2.webp',
+    '/images/condizionatore-wall/3.webp',
+    '/images/condizionatore-wall/4.webp',
+    '/images/condizionatore-wall/5.webp',
   ];
 
   // ============================================
@@ -602,7 +602,7 @@ const App = () => {
 
             <div className="relative order-1">
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl overflow-hidden shadow-xl relative max-w-xs mx-auto">
-                <img src="/images/condizionatore wall/1.png" alt="Klimatyzator Ścienny Pro 2w1 Bez Jednostki Zewnętrznej" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
+                <img src="/images/condizionatore-wall/1.webp" alt="Klimatyzator Ścienny Pro 2w1 Bez Jednostki Zewnętrznej" className="w-full h-auto object-contain mix-blend-multiply opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 <div className="absolute top-2 right-2 bg-red-600 text-white font-bold px-2 py-1 rounded-full shadow-md text-xs">
                   -50% OFERTA
@@ -638,7 +638,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-5xl">
           <div className="grid gap-6 items-center">
             <div className="order-2">
-              <img src="/images/condizionatore wall/2.png" alt="Zimny dom" className="rounded-xl shadow-lg w-full h-48 object-cover" />
+              <img src="/images/condizionatore-wall/2.webp" alt="Zimny dom" className="rounded-xl shadow-lg w-full h-48 object-cover" />
             </div>
             <div className="order-1">
               <h2 className="text-xl font-bold mb-3 text-gray-800">Zimny dom i wysokie rachunki?</h2>
@@ -871,14 +871,14 @@ const App = () => {
             <div className="grid gap-4 max-w-5xl mx-auto">
                 <div className="bg-white p-4 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 bg-gray-50">
-                         <img src="/images/condizionatore wall/3.png" alt="Pilot" className="w-full h-auto object-contain" />
+                         <img src="/images/condizionatore-wall/3.webp" alt="Pilot" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base font-bold mb-2">Pełna kontrola z kanapy</h3>
                     <p className="text-xs text-gray-600">Pilotem zmienisz tryb, temperaturę i prędkość wentylatora. Intuicyjny wyświetlacz LED na urządzeniu.</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm">
                     <div className="overflow-hidden rounded-lg mb-3 bg-gray-50">
-                        <img src="/images/condizionatore wall/4.png" alt="Montaż ścienny" className="w-full h-auto object-contain" />
+                        <img src="/images/condizionatore-wall/4.webp" alt="Montaż ścienny" className="w-full h-auto object-contain" />
                     </div>
                     <h3 className="text-base font-bold mb-2">Prosty montaż</h3>
                     <p className="text-xs text-gray-600">Smukła konstrukcja ścienna, nie zajmuje miejsca na podłodze. Zestaw montażowy w zestawie.</p>
@@ -933,7 +933,7 @@ const App = () => {
                     </p>
                 </div>
                 <div>
-                    <img src="/images/condizionatore wall/5.png" alt="Elegancki design" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
+                    <img src="/images/condizionatore-wall/5.webp" alt="Elegancki design" className="rounded-xl shadow-2xl border border-gray-700 w-full" />
                 </div>
             </div>
         </div>
@@ -944,7 +944,7 @@ const App = () => {
         <div className="container mx-auto px-3 max-w-4xl">
             <div className="grid gap-6 mb-10 items-center">
                  <div className="order-2">
-                    <img src="/images/condizionatore wall/6.png" alt="Widok z boku" className="rounded-lg shadow w-full h-48 object-cover" />
+                    <img src="/images/condizionatore-wall/6.webp" alt="Widok z boku" className="rounded-lg shadow w-full h-48 object-cover" />
                 </div>
                 <div className="space-y-2 text-xs order-1">
                     <h3 className="text-lg font-bold mb-4 text-gray-800">Specyfikacja techniczna</h3>
@@ -1072,7 +1072,7 @@ const App = () => {
                 <div className="p-4 bg-gray-50 border-b border-gray-100">
                     <div className="flex gap-3 mb-4">
                         <div className="w-16 h-16 bg-white rounded-lg p-2 shadow-sm flex-shrink-0">
-                            <img src="/images/condizionatore wall/7.png" alt="Produkt" className="w-full h-full object-contain" />
+                            <img src="/images/condizionatore-wall/7.webp" alt="Produkt" className="w-full h-full object-contain" />
                         </div>
                         <div>
                             <h4 className="font-bold text-sm">Klimatyzator Ścienny Pro 2w1</h4>

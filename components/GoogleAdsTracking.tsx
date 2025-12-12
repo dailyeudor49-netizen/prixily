@@ -192,7 +192,7 @@ export const LANDING_CONFIGS: Record<string, {
   'wallheater-un-cz': {
     conversionId: 'AW-17763272302',
     conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
-    defaultValue: 2490,
+    defaultValue: 2099,
     currency: 'CZK',
     productName: 'Nástěnná klimatizace Pro 2v1'
   },

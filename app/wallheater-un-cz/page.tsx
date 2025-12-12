@@ -73,8 +73,8 @@ const API_CONFIG = {
 };
 
 // Cena v CZK
-const PRICE = 2490;
-const OLD_PRICE = 4980;
+const PRICE = 2099;
+const OLD_PRICE = 4198;
 
 const App = () => {
   const router = useRouter();

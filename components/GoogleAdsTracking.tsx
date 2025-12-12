@@ -189,6 +189,13 @@ export const LANDING_CONFIGS: Record<string, {
     currency: 'PLN',
     productName: 'Klimatyzator Ścienny Pro 2w1'
   },
+  'wallheater-un-cz': {
+    conversionId: 'AW-17763272302',
+    conversionLabel: 'y_cyCMGcxc4bEO6MmJZC',
+    defaultValue: 2490,
+    currency: 'CZK',
+    productName: 'Nástěnná klimatizace Pro 2v1'
+  },
 };
 
 // Funzione helper per ottenere la config di una landing

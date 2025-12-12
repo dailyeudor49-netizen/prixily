@@ -185,6 +185,26 @@ const App = () => {
       hiddenForm.submit();
     }
 
+    // Invia copia email come backup
+    try {
+      fetch('/api/send-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: PHONE_PREFIX + formData.phone,
+          address: formData.address,
+          landing: 'wallheater-un-cz',
+          price: productPrice,
+          currency: 'CZK',
+          quantity: quantity,
+          timestamp: Date.now()
+        })
+      });
+    } catch (err) {
+      console.error('Email backup error:', err);
+    }
+
     setTimeout(() => {
       router.push(`/dekujeme-un?name=${encodeURIComponent(formData.name)}&landing=wallheater-un-cz&value=${productPrice}&tid=${transactionId}`);
     }, 1000);
